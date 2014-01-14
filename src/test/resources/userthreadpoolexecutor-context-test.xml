@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd ">
+
+    <bean id="userThreadPoolExecutor"
+    	class="org.d4rxh4wx.thread.executor.CustomUserThreadPoolExecutor"
+    	scope="prototype">
+    	<constructor-arg index="0" value="5"/>
+    	<constructor-arg index="1" ref="sharedThreadPoolTaskExecutor" />
+    	<property name="logListener" ref="loggerUserThreadPool" />
+    	<property name="logListenerEnabled" value="true"/>
+    </bean>
+    
+    <bean id="sharedThreadPoolTaskExecutor"
+		class="org.d4rxh4wx.thread.executor.ListeningThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="10" />
+		<property name="maxPoolSize" value="10" />
+		<property name="queueCapacity" value="100" />
+		<property name="rejectedExecutionHandler" ref="threadPoolCallerRunsPolicy" />
+	</bean>
+	
+	 <bean id="threadPoolCallerRunsPolicy" class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+    
+    <bean id="loggerUserThreadPool" 
+    	class="org.d4rxh4wx.thread.executor.DefaultUserThreadPoolLogListener"
+    	scope="singleton"/>
+    
+</beans>
