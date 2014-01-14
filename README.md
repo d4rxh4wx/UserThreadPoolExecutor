@@ -16,6 +16,7 @@ Example
 -------
 See: UserThreadPoolTest.java:
 
+```java
 // submitting a number of 10 tasks (max per user = 5)
 // this thread will block of the 6th task, waiting for a finished task to proceed
 for (int i = 0; i < 10; i++) {
@@ -24,8 +25,10 @@ for (int i = 0; i < 10; i++) {
 
 // waiting (in this thread) for remaining user tasks to finish
 userThreadPoolExecutor.waitForRemainingTasks();
-
+```
 
 Run a test
 ----------
+```bash
 mvn clean test
+```
